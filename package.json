@@ -21,9 +21,12 @@
   },
   "homepage": "https://github.com/Kleon26/zero-to-tech#readme",
   "devDependencies": {
+    "@vitejs/plugin-react": "^6.0.5",
     "vite": "^8.2.1"
   },
   "dependencies": {
-    "animejs": "^4.5.0"
+    "animejs": "^4.5.0",
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8"
   }
 }
