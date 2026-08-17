@@ -1,0 +1,23 @@
+[
+  {
+    "text": "你无敌了",
+    "score": 0.91,
+    "label": "偏积极",
+    "pinyin": "nǐ wú dí le",
+    "created_at": "2026-08-17T11:27:15+00:00"
+  },
+  {
+    "text": "你拉完了",
+    "score": 0.64,
+    "label": "偏积极",
+    "pinyin": "nǐ lā wán le",
+    "created_at": "2026-08-17T11:27:20+00:00"
+  },
+  {
+    "text": "牛来",
+    "score": 0.5,
+    "label": "中性",
+    "pinyin": "niú lái",
+    "created_at": "2026-08-17T11:28:51+00:00"
+  }
+]
