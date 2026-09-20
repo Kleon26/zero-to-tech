@@ -7,8 +7,12 @@ from pydantic import BaseModel
 from pypinyin import lazy_pinyin, Style
 from snownlp import SnowNLP
 from datetime import datetime, timezone
-
+from dotenv import load_dotenv   
 from storage import init_db, save_record, get_history      # ← 新增：跟存储层打交道，只经过这一行
+
+load_dotenv()  # 加载环境变量
+
+ALLOWED_ORIGINS = os.getenv("ALLOWED_ORIGINS", "").split(",")  # ← 新增：从环境变量里读取允许的前端地址
 
 init_db()  # 初始化数据库
 
@@ -17,7 +21,7 @@ app = FastAPI()
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000"],  # ← 新增：允许前端的地址跨源请求
+    allow_origins=ALLOWED_ORIGINS,  # ← 新增：允许前端的地址跨源请求
     allow_methods=["GET", "POST"],
     allow_headers=["*"],
     allow_credentials=True,          # ← 新增：允许跨源请求带上 cookie
