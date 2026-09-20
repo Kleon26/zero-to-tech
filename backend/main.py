@@ -14,36 +14,13 @@ init_db()  # 初始化数据库
 
 app = FastAPI()
 
-# CORS：浏览器只放行"名单里"的来源，名单外的请求会被拦下，
-# 前端 fetch 拿不到响应，控制台只会看到一句没有细节的 "Failed to fetch"。
-# 这里原来写死了 "http://192.168.10.83:3000"，那是当时这台电脑的局域网 IP；
-# 后来路由器重新分配，IP 变成 192.168.10.23，用新 IP 打开页面就被 CORS 拦掉了。
-# 所以局域网 IP 不再写死，改用正则兜住整段私网地址，换 IP、换端口都不用再改代码。
-CORS_ORIGINS = [
-    origin.strip()
-    for origin in os.environ.get("CORS_ORIGINS", "").split(",")
-    if origin.strip()
-] or [
-    "http://localhost:3000",
-    "http://127.0.0.1:3000",
-]
-
-CORS_ORIGIN_REGEX = (
-    r"^http://("
-    r"localhost"
-    r"|127\.0\.0\.1"
-    r"|192\.168\.\d{1,3}\.\d{1,3}"          # 家用路由器最常见的一段
-    r"|10\.\d{1,3}\.\d{1,3}\.\d{1,3}"
-    r"|172\.(?:1[6-9]|2\d|3[01])\.\d{1,3}\.\d{1,3}"
-    r")(?::\d+)?$"
-)
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=CORS_ORIGINS,
-    allow_origin_regex=CORS_ORIGIN_REGEX,
+    allow_origins=["http://localhost:3000"],  # ← 新增：允许前端的地址跨源请求
     allow_methods=["GET", "POST"],
-     allow_credentials=True,          # ← 新增：允许跨源请求带上 cookie
+    allow_headers=["*"],
+    allow_credentials=True,          # ← 新增：允许跨源请求带上 cookie
 )
 
 def get_session_id(request: Request, response: Response) -> str:
